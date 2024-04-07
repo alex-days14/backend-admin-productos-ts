@@ -3,7 +3,7 @@ import router from "./router";
 import db from "./config/db";
 import colors from "colors"
 import swaggerUI from "swagger-ui-express";
-import swaggerSpec from "./config/swagger";
+import swaggerSpec, { swaggerUIOptions } from "./config/swagger";
 
 //Conectar a base de datos 
 export async function connectDB(){
@@ -20,6 +20,9 @@ connectDB()
 
 // Servidor
 const server = express();
+const STATIC = express.static('public')
+
+server.use('/static', STATIC)
 
 //Leer datos de forms
 server.use(express.json())
@@ -27,6 +30,6 @@ server.use(express.json())
 server.use("/api/products", router)
 
 //Docs 
-server.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec))
+server.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, swaggerUIOptions))
 
 export default server
