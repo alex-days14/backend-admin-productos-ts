@@ -33,7 +33,8 @@ router.route("/:id")
 .put(
     param('id').isInt().withMessage("ID no válido"),
     body("name")
-        .notEmpty().withMessage("Nombre de producto es obligatorio"),
+        .notEmpty().withMessage("Nombre de producto es obligatorio")
+        .isString().withMessage('Nombre no válido'),
     body("price")
         .isNumeric().withMessage("Precio no válido")
         .notEmpty().withMessage("Precio de producto es obligatorio")
